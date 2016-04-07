@@ -1,5 +1,6 @@
 package com.example.adam.twitterapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,23 +10,31 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.User;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+
+
+
 public class MainActivity extends AppCompatActivity {
+
+    SharedPreferences pref;
+
+    private static String CONSUMER_KEY = "Y5RKiazZ8HwqPLwCYzNvB3LHL";
+    private static String CONSUMER_SECRET = "WSuZncU2WCI8tBTGOl5WpGKd4Src4nXsHZFydgjfIxsSXQmwbE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        pref = getPreferences(0);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString("CONSUMER_KEY", CONSUMER_KEY);
+        edit.putString("CONSUMER_SECRET", CONSUMER_SECRET);
+        edit.commit();
     }
 
     @Override
